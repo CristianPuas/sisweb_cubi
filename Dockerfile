@@ -1,4 +1,4 @@
-FROM cristianPuas32/octane:latest
+FROM cristianpuas32/octane:latest
 
 RUN curl -sS https://getcomposer.org/installer​ | php -- \
      --install-dir=/usr/local/bin --filename=composer
