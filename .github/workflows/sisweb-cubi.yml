@@ -1,6 +1,5 @@
 name: Docker Image CI
 
-
 on:
   push:
     branches: [ main ]
@@ -8,11 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-    
 
     steps:
       - name: Checkout 
@@ -35,5 +31,5 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          no-cache: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/sisweb_cubi:latest
+          no-cache: true
