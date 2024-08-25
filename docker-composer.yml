@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    image: crsitianpuas32/sisweb_cubi:latest
+    container_name: sisweb_cubi
+    ports:
+      - "8000:9000"
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_DB: sisweb_cubi
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: puas23
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
