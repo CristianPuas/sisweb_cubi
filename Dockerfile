@@ -41,7 +41,7 @@ RUN mkdir -p /app/storage/logs
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
 # Expone el puerto 8000
-EXPOSE 8000
+EXPOSE 8081
 
 # Inicia el servidor integrado de Laravel
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8081"]
