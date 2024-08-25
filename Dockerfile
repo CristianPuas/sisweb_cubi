@@ -1,5 +1,5 @@
 # Usa una imagen base de PHP 8.2
-FROM php:8.2-cli
+FROM crsitianpuas32/sisweb_cubi:latest
 
 # Instala dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -40,7 +40,7 @@ COPY .env.example .env
 RUN mkdir -p /app/storage/logs
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
-# Exponer el puerto 8000 para el servidor PHP
+# Expone el puerto 8000
 EXPOSE 8000
 
 # Inicia el servidor integrado de Laravel
