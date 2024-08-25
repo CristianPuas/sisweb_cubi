@@ -31,5 +31,5 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/sisweb_cubi:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}crsitianpuas32/sisweb_cubi:latest
           no-cache: true
