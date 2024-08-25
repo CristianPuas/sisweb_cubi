@@ -1,5 +1,5 @@
-# Usa una imagen base de PHP
-FROM php:8.1-cli
+# Usa una imagen base de PHP 8.2
+FROM php:8.2-cli
 
 # Instala dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -22,7 +22,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_pgsql
 
 # Instala Composer
-
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Configura el directorio de trabajo
 WORKDIR /app
@@ -31,7 +31,7 @@ WORKDIR /app
 COPY . .
 
 # Instala dependencias de Composer
-
+RUN composer install --no-dev --optimize-autoloader
 
 # Copia el archivo .env
 COPY .env.example .env
@@ -40,7 +40,7 @@ COPY .env.example .env
 RUN mkdir -p /app/storage/logs
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
-# Expone el puerto 8000 para PHP
+# Exponer el puerto 8000 para el servidor PHP
 EXPOSE 8000
 
 # Inicia el servidor integrado de Laravel
