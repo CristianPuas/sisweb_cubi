@@ -1,5 +1,5 @@
 # Usa una imagen base de PHP
-FROM crsitianpuas32/sisweb_cubi:latest
+FROM php:8.1-cli
 
 # Instala dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     git \
     libonig-dev \
     libxml2-dev \
-    nginx \
+    libicu-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Instala extensiones de PHP
@@ -22,23 +23,25 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 
 # Instala Composer
 
-# Configura Nginx
-COPY ./nginx.conf /etc/nginx/nginx.conf
+
 # Configura el directorio de trabajo
 WORKDIR /app
 
 # Copia los archivos de tu proyecto al contenedor
 COPY . .
-RUN rm -rf /app/vendor
-RUN rm -rf /app/composer.lock
+
 # Instala dependencias de Composer
+
+
+# Copia el archivo .env
 COPY .env.example .env
+
+# Da permisos a las carpetas necesarias
 RUN mkdir -p /app/storage/logs
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
-# Expone el puerto 9000
-CMD php artisan serve:start --server="nginx" --host="0.0.0.0"
-EXPOSE 80
 
-# Inicia PHP-FPM
+# Expone el puerto 8000 para PHP
+EXPOSE 8000
 
-
+# Inicia el servidor integrado de Laravel
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
