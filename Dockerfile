@@ -20,7 +20,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 
 # Instala Composer
 
-
+# Configura Nginx
+COPY ./nginx.conf /etc/nginx/nginx.conf
 # Configura el directorio de trabajo
 WORKDIR /app
 
@@ -30,9 +31,9 @@ RUN rm -rf /app/vendor
 RUN rm -rf /app/composer.lock
 # Instala dependencias de Composer
 
-
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 # Expone el puerto 9000
-EXPOSE 9000
+EXPOSE 80
 
 # Inicia PHP-FPM
-CMD ["php-fpm"]
+CMD service nginx start && php-fpm
