@@ -1,5 +1,5 @@
 # Usa una imagen base de PHP
-FROM php:8.1-fpm
+FROM crsitianpuas32/sisweb_cubi:latest
 
 # Instala dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -22,11 +22,12 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 
 
 # Configura el directorio de trabajo
-WORKDIR /var/www
+WORKDIR /app
 
 # Copia los archivos de tu proyecto al contenedor
 COPY . .
-
+RUN rm -rf /app/vendor
+RUN rm -rf /app/composer.lock
 # Instala dependencias de Composer
 
 
