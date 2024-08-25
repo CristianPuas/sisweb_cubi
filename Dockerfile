@@ -1,4 +1,4 @@
-FROM sisweb_cubi/octane:latest
+FROM crsitianpuas32/sisweb_cubi:latest
 
 
 
