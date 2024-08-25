@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     libonig-dev \
-    libxml2-dev
+    libxml2-dev \
+    nginx \
+    && rm -rf /var/lib/apt/lists/*
 
 # Instala extensiones de PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -36,4 +38,5 @@ RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 EXPOSE 80
 
 # Inicia PHP-FPM
-CMD service nginx start && php-fpm
+CMD ["sh", "-c", "nginx && php-fpm"]
+
