@@ -32,11 +32,13 @@ COPY . .
 RUN rm -rf /app/vendor
 RUN rm -rf /app/composer.lock
 # Instala dependencias de Composer
-
+COPY .env.example .env
+RUN mkdir -p /app/storage/logs
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 # Expone el puerto 9000
+CMD php artisan serve:start --server="nginx" --host="0.0.0.0"
 EXPOSE 80
 
 # Inicia PHP-FPM
-CMD ["sh", "-c", "nginx && php-fpm"]
+
 
